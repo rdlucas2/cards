@@ -6,7 +6,7 @@
 ### Test
 ```npm test```
 ### Preview the release build of the app locally:  
-```npm start```
+```npm start```  
 *you may need to update the start command in package.json:  
 ```"start": "npm test && npm run build-release && concurrently \"http-server -a localhost -p 1234\" \UPDATE_ME http://localhost:1234/dist/\"",``` 
 ###### windows: replace UPDATE_ME with start  
