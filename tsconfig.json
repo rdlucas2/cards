@@ -1,0 +1,11 @@
+{
+    "files": [
+        "src/main.ts",
+        "src/cards/Card.ts",
+        "src/cards/Deck.ts",
+        "src/cards/PlayingCards/DeckOfPlayingCards.ts",
+        "src/cards/PlayingCards/PlayingCard.ts",
+        "src/cards/Uno/DeckOfUnoCards.ts",
+        "src/cards/Uno/UnoCard.ts"
+    ]
+}

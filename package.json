@@ -1,0 +1,33 @@
+{
+  "name": "cards",
+  "version": "1.0.0",
+  "description": "My take on cards",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm test && gulp && concurrently \"http-server -a localhost -p 1234\" \"start http://localhost:1234/dist/\"",
+    "build": "npm test && gulp build",
+    "test": "mocha -r ts-node/register src/tests.ts"
+  },
+  "author": "Ryan Lucas",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^4.0.4",
+    "@types/mocha": "^2.2.44",
+    "browserify": "^14.5.0",
+    "chai": "^4.1.2",
+    "concurrently": "^3.5.0",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-csso": "^3.0.0",
+    "gulp-minify": "^1.0.0",
+    "gulp-typescript": "^3.2.3",
+    "gulp-uglify": "^3.0.0",
+    "gulp-watch": "^4.3.11",
+    "http-server": "^0.10.0",
+    "mocha": "^4.0.1",
+    "pump": "^1.0.2",
+    "ts-node": "^3.3.0",
+    "tsify": "^3.0.3",
+    "typescript": "^2.6.1",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
