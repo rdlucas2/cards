@@ -1,5 +1,5 @@
 # cards
-https://rdlucas2.github.io/cards/dist/index.html
+[https://rdlucas2.github.io/cards/dist/index.html](https://rdlucas2.github.io/cards/dist/index.html)
 
 ### Install dependencies:  
 ```npm install```
