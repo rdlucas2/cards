@@ -2,3 +2,53 @@ body {
     background: seagreen;
     color: #cfcfcf;
 }
+
+.card {
+    width: 250px;
+    height: 300px;
+    float: left;
+    border: 1px solid black;
+    margin: 2px;
+}
+
+.playing-card {
+    background: white;
+    font-size: 90px;
+    text-align: center;
+}
+
+.SPADES {
+    color: black;
+}
+
+.CLUBS {
+    color: black;
+}
+
+.HEARTS {
+    color: red;
+}
+
+.DIAMONDS {
+    color: red;
+}
+
+.RED {
+    background: red;
+}
+
+.GREEN {
+    background: rgb(0, 255, 106);
+}
+
+.BLUE {
+    background: blue;
+}
+
+.YELLOW {
+    background: yellow;
+}
+
+.BLACK {
+    background: black;
+}

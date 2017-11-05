@@ -8,11 +8,11 @@ export default function DeckOfUnoCards() {
         if(color === "BLACK") { continue; }
         var c = color as keyof typeof UnoColor;
         for(let rank in UnoRank) {
-            if(!isNaN(Number(rank))) { continue; }
+            if(isNaN(Number(rank))) { continue; }
             var r = rank as keyof typeof UnoRank;
-            if(rank === "ZERO" || rank.indexOf('WILD') !== -1) {
+            if(rank === "0" || rank === "13" || rank === "14") {
                 var tmpC = UnoColor[c];
-                if(rank.indexOf('WILD') !== -1) {
+                if(rank == "13" || rank === "14") {
                     tmpC = UnoColor.BLACK;
                 }   
                 cards.push(new UnoCard(tmpC, UnoRank[r]));

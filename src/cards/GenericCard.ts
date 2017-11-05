@@ -7,8 +7,8 @@ export default class GenericCard implements Card {
         this.art = art;
     }
 
-    state: CardState;
-    orientation: CardOrientation;
+    state: CardState = CardState.DOWN;
+    orientation: CardOrientation = CardOrientation.VERTICAL;
     name: string;
 
     content: string;

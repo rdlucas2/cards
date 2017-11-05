@@ -30,8 +30,8 @@ export class PlayingCard implements Card {
         this.suit = suit;
     }
     
-    state: CardState;
-    orientation: CardOrientation;
+    state: CardState = CardState.DOWN;
+    orientation: CardOrientation = CardOrientation.VERTICAL;
     name: string;
 
     rank: Rank;

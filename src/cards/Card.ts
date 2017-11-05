@@ -1,11 +1,11 @@
 export enum CardState {
-    DOWN,
-    UP
+    DOWN = "DOWN",
+    UP = "UP"
 }
 
 export enum CardOrientation {
-    VERTICAL,
-    HORIZONTAL
+    VERTICAL = "VERTICAL",
+    HORIZONTAL = "HORIZONTAL"
 }
 
 export interface Card {

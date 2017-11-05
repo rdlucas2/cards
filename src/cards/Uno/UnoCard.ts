@@ -5,25 +5,25 @@ export enum UnoColor {
     GREEN = "GREEN",
     BLUE = "BLUE",
     YELLOW = "YELLOW",
-    BLACK = ""
+    BLACK = "BLACK"
 }
 
 export enum UnoRank {
-    ZERO = "0",
-    ONE = "1",
-    TWO = "2",
-    THREE = "3",
-    FOUR = "4",
-    FIVE = "5",
-    SIX = "6",
-    SEVEN = "7",
-    EIGHT = "8",
-    NINE = "9",
-    DRAWTWO = "DRAW TWO",
-    SKIP = "SKIP",
-    REVERSE = "REVERSE",
-    WILD = "WILD",
-    WILDFOUR = "WILD DRAW FOUR"
+    ZERO = 0,
+    ONE,
+    TWO,
+    THREE,
+    FOUR,
+    FIVE,
+    SIX,
+    SEVEN,
+    EIGHT,
+    NINE,
+    DRAW_TWO,
+    SKIP,
+    REVERSE,
+    WILD,
+    WILD_DRAW_FOUR
 }
 
 export class UnoCard implements Card {
@@ -33,8 +33,8 @@ export class UnoCard implements Card {
         this.color = color;
     }
     
-    state: CardState;
-    orientation: CardOrientation;
+    state: CardState = CardState.DOWN;
+    orientation: CardOrientation = CardOrientation.VERTICAL;
     name: string;
 
     rank: UnoRank;
