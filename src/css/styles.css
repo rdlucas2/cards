@@ -1,19 +1,23 @@
 body {
     background: seagreen;
-    color: #cfcfcf;
+}
+
+.hide {
+    display: none;
 }
 
 .card {
-    width: 250px;
-    height: 300px;
     float: left;
+    width: 125px;
+    height: 150px;
     border: 1px solid black;
     margin: 2px;
+    position: relative;
+    display: table;
 }
 
 .playing-card {
     background: white;
-    font-size: 90px;
     text-align: center;
 }
 
@@ -51,4 +55,28 @@ body {
 
 .BLACK {
     background: black;
+}
+
+.upper-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 40px;
+}
+
+.lower-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    height: 40px;
+}
+
+.center {
+    font-size: 30px;
+    text-align: center;
+    position: relative;
+    display: table-cell;
+    vertical-align: middle;
 }
