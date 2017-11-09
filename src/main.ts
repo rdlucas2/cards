@@ -151,7 +151,7 @@ import DeckOfUnoCards from './cards/Uno/DeckOfUnoCards';
     }
 
     var deck = DeckOfPlayingCards();
-    // deck.shuffle();
+    deck.shuffle();
 
     for(var i = 0; i < deck.cards.length; i++) {
         deck.cards[i].state = CardState.UP;
