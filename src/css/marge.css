@@ -12,6 +12,7 @@
     height: 150px;
     margin: 0 auto;
     transform: scale(0.55);
+    bottom: 12px;
 }
 
 #marge .head * {

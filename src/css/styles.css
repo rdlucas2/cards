@@ -47,6 +47,7 @@ body {
 
 .BLUE {
     background: blue;
+    color: white;
 }
 
 .YELLOW {
@@ -55,6 +56,11 @@ body {
 
 .BLACK {
     background: black;
+    color: white;
+}
+
+.ACE>.center {
+    font-size: 90px
 }
 
 .upper-left {
@@ -74,7 +80,7 @@ body {
 }
 
 .center {
-    font-size: 30px;
+    font-size: 25px;
     text-align: center;
     position: relative;
     display: table-cell;

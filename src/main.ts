@@ -45,6 +45,8 @@ import DeckOfUnoCards from './cards/Uno/DeckOfUnoCards';
         if(card.state === CardState.DOWN) {
             classes += ' ' + CardState.DOWN;
         } else {
+            var centerOfCard = document.createElement('div');
+            centerOfCard.setAttribute('class', 'center');
             if(card instanceof PlayingCard) {
                 classes += ' ' + card.rank + ' ' + card.suit;
                 var symbol = '';
@@ -64,84 +66,58 @@ import DeckOfUnoCards from './cards/Uno/DeckOfUnoCards';
                 }
 
                 var cornerLetter = '';
-                var centerOfCard = document.createElement('div');
                 switch(card.rank.toString()) {
                     case "ACE":
                         cornerLetter = 'A';
                         centerOfCard.innerHTML = symbol;
-                        centerOfCard.setAttribute('class', 'center');
                         break;
                     case "TWO":
                         cornerLetter = '2';
-                        var centerOfCard = document.createElement('div');
                         centerOfCard.innerHTML = symbol + '<br>' + symbol;
-                        centerOfCard.setAttribute('class', 'center');
                         break;
                     case "THREE":
                         cornerLetter = '3';
-                        var centerOfCard = document.createElement('div');
                         centerOfCard.innerHTML = symbol + '<br>' + symbol + '<br>' + symbol;
-                        centerOfCard.setAttribute('class', 'center');
                         break;
                     case "FOUR":
                         cornerLetter = '4';
-                        var centerOfCard = document.createElement('div');
                         centerOfCard.innerHTML = symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol;
-                        centerOfCard.setAttribute('class', 'center');
                         break;
                     case "FIVE":
                         cornerLetter = '5';
-                        var centerOfCard = document.createElement('div');
                         centerOfCard.innerHTML = symbol + ' ' + symbol + '<br>' + symbol + '<br>' + symbol + ' ' + symbol;
-                        centerOfCard.setAttribute('class', 'center');
                         break;
                     case "SIX":
                         cornerLetter = '6';
-                        var centerOfCard = document.createElement('div');
                         centerOfCard.innerHTML = symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol;
-                        centerOfCard.setAttribute('class', 'center');
                         break;
                     case "SEVEN":
                         cornerLetter = '7';
-                        var centerOfCard = document.createElement('div');
                         centerOfCard.innerHTML = symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol;
-                        centerOfCard.setAttribute('class', 'center');
                         break;
                     case "EIGHT":
                         cornerLetter = '8';
-                        var centerOfCard = document.createElement('div');
                         centerOfCard.innerHTML = symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol;
-                        centerOfCard.setAttribute('class', 'center');
                         break;
                     case "NINE":
                         cornerLetter = '9';
-                        var centerOfCard = document.createElement('div');
                         centerOfCard.innerHTML = symbol + ' ' + symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol + ' ' + symbol;
-                        centerOfCard.setAttribute('class', 'center');
                         break;
                     case "TEN":
                         cornerLetter = '10';
-                        var centerOfCard = document.createElement('div');
                         centerOfCard.innerHTML = symbol + ' ' + symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol;
-                        centerOfCard.setAttribute('class', 'center');
                         break;
                     case "JACK":
                         cornerLetter = 'J';
-                        var centerOfCard = document.createElement('div');
                         centerOfCard.innerHTML = document.getElementById('bart').outerHTML;
-                        centerOfCard.setAttribute('class', 'center');
                         break;
                     case "QUEEN":
                         cornerLetter = 'Q';
-                        var centerOfCard = document.createElement('div');
                         centerOfCard.innerHTML = document.getElementById('marge').outerHTML;
-                        centerOfCard.setAttribute('class', 'center');
                         break;
                     case "KING":
                         cornerLetter = 'K';
-                        var centerOfCard = document.createElement('div');
                         centerOfCard.innerHTML = document.getElementById('homer').outerHTML;
-                        centerOfCard.setAttribute('class', 'center');
                         break;
                 }
 
@@ -156,6 +132,8 @@ import DeckOfUnoCards from './cards/Uno/DeckOfUnoCards';
 
             if(card instanceof UnoCard) {
                 classes += ' ' + card.rank + ' ' + card.color;
+                centerOfCard.innerText = card.name.replace(/_/g, ' ');
+                elem.appendChild(centerOfCard);
             }
     
             if(card instanceof GenericCard) {
