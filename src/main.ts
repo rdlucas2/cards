@@ -136,6 +136,11 @@ import * as firebase from 'firebase';
         let card = <HierarchyCard>tmpDeck.removeCardByName(name);
         card.color = color === 'LIGHT' ? HierarchyColor.LIGHT : HierarchyColor.DARK;
         renderCard(card);
+        if (!snapshot.child('init').val()) {
+            let el = document.getElementsByClassName(snapshot.key)[0];
+            let transformString = snapshot.child('position').val();
+            (<any>el).style.transform = transformString;
+        }
         removeCardEvents();
         bindCardEvents();
     });
