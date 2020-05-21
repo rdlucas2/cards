@@ -1,6 +1,6 @@
-import { Card, CardState, CardOrientation } from './Card';
+import { Card, CardState, CardOrientation } from '../Card';
 
-export default class GenericCard implements Card {
+export class GenericCard implements Card {
     constructor(name: string, content: string, art: URL = new URL('')) {
         this.name = name
         this.content = content;

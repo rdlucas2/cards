@@ -1,14 +1,14 @@
 import { Card } from './Card';
 
 export default class Deck {
-    constructor(cards: Card[]){
+    constructor(cards: Card[]) {
         this.cards = cards;
     }
     cards: Card[];
 
     shuffle() {
         var j, x, i;
-        for(i = this.cards.length - 1; i > 0; i--) {
+        for (i = this.cards.length - 1; i > 0; i--) {
             j = Math.floor(Math.random() * (i + 1));
             x = this.cards[i];
             this.cards[i] = this.cards[j];
@@ -21,7 +21,7 @@ export default class Deck {
     }
 
     private NoCardsToRemoveError() {
-        if(this.cards.length === 0) {
+        if (this.cards.length === 0) {
             throw "NO CARDS TO REMOVE!"
         }
     }
@@ -29,7 +29,7 @@ export default class Deck {
     removeCardByCard(card: Card): Card {
         this.NoCardsToRemoveError();
         var i = this.cards.indexOf(card);
-        if(i !== -1) {
+        if (i !== -1) {
             var result = this.cards[i];
             this.cards.splice(i, 1);
             return result;
@@ -40,7 +40,16 @@ export default class Deck {
 
     removeCardByName(name: string): Card {
         this.NoCardsToRemoveError();
-        throw "NOT IMPLEMENTED";
+        var i = this.cards.findIndex((v) => {
+            return v.name === name;
+        });
+        if (i !== -1) {
+            var result = this.cards[i];
+            this.cards.splice(i, 1);
+            return result;
+        } else {
+            throw "CARD NOT FOUND!";
+        }
     }
 
     removeCardByIndex(x: number): Card {
@@ -52,13 +61,13 @@ export default class Deck {
 
     takeFromTop(x: number): Card[] {
         var result = new Array<Card>();
-        for(var i = 0; i < x; i++) {
+        for (var i = 0; i < x; i++) {
             result.push(this.cards.pop());
         }
         return result;
     }
 
     random(): Card {
-        return this.cards[Math.floor(Math.random()*(this.cards.length-0+1)+0)];
+        return this.cards[Math.floor(Math.random() * (this.cards.length - 0 + 1) + 0)];
     }
 }

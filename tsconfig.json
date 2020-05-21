@@ -3,9 +3,17 @@
         "src/main.ts",
         "src/cards/Card.ts",
         "src/cards/Deck.ts",
+        "src/cards/GenericCards/DeckOfGenericCards.ts",
+        "src/cards/GenericCards/GenericCard.ts",
+        "src/cards/GenericCards/GenericCardHtmlView.ts",
+        "src/cards/HierarchyCards/DeckOfHierarchyCards.ts",
+        "src/cards/HierarchyCards/HierarchyCard.ts",
+        "src/cards/HierarchyCards/HierarchyCardHtmlView.ts",
         "src/cards/PlayingCards/DeckOfPlayingCards.ts",
         "src/cards/PlayingCards/PlayingCard.ts",
+        "src/cards/PlayingCards/PlayingCardHtmlView.ts",
         "src/cards/Uno/DeckOfUnoCards.ts",
-        "src/cards/Uno/UnoCard.ts"
+        "src/cards/Uno/UnoCard.ts",
+        "src/cards/Uno/UnoCardHtmlView.ts"
     ]
 }

@@ -1,168 +1,167 @@
-import Deck from './cards/Deck';
-import { Card, CardState, CardOrientation } from './cards/Card';
-import GenericCard from './cards/GenericCard';
-import { PlayingCard, Suit, Rank } from './cards/PlayingCards/PlayingCard';
-import DeckOfPlayingCards from './cards/PlayingCards/DeckOfPlayingCards';
-import { UnoCard, UnoColor, UnoRank } from './cards/Uno/UnoCard';
-import DeckOfUnoCards from './cards/Uno/DeckOfUnoCards';
+import { Card } from './cards/Card';
+import { HierarchyCard, HierarchyColor } from './cards/HierarchyCards/HierarchyCard';
+import DeckOfHierarchyCards from './cards/HierarchyCards/DeckOfHierarchyCards';
+import { HierarchyCardHtmlView } from './cards/HierarchyCards/HierarchyCardHtmlView'
+import { firebaseConfig } from './firebaseConfig'
+import * as firebase from 'firebase';
 
-(()=> {
-    function buildCardCornerHtml(id: string, symbol: string, cssClass: string): HTMLElement {
-        var identifier = document.createElement('div');
-        identifier.innerHTML = id;
+(() => {
+    function getDraggableAreaElement(): HTMLElement {
+        return document.getElementById("draggableArea");
+    }
 
-        var suit = document.createElement('div');
-        suit.innerHTML = symbol;
-
-        var cornerContent = document.createElement('div');
-        cornerContent.appendChild(identifier);
-        cornerContent.appendChild(suit);
-
-        var corner = document.createElement('div');
-        corner.appendChild(cornerContent);
-        corner.setAttribute('class', cssClass);
-
-        return corner;
+    function addCardToFirebase(card: Card) {
+        var el = new HierarchyCardHtmlView().render(<HierarchyCard>card);
+        // getDraggableAreaElement().appendChild(el);
+        firebase.database().ref('cards/' + el.className).set({
+            init: true
+        });
     }
 
     function renderCard(card: Card) {
-        var elem = document.createElement('div');
+        var el = new HierarchyCardHtmlView().render(<HierarchyCard>card);
+        getDraggableAreaElement().appendChild(el);
+    }
 
-        var classes = 'card'
+    function writeCardPositionData(cardId, transformString) {
+        firebase.database().ref('cards/' + cardId).update({
+            position: transformString,
+            init: false
+        });
+    }
 
-        if(card instanceof PlayingCard) {
-            classes += ' playing-card';
-        }
-        
-        if(card instanceof UnoCard) {
-            classes += ' uno-card';
-        }
+    let app = firebase.initializeApp(firebaseConfig);
 
-        if(card instanceof GenericCard) {
-            classes += ' generic-card';
-        }
+    var draggedItems: any[] = [];
 
-        if(card.state === CardState.DOWN) {
-            classes += ' ' + CardState.DOWN;
+    function dragStart(e) {
+        var index = draggedItems.findIndex((v, i, o) => {
+            return e.srcElement.parentElement === v.elem;
+        });
+        if (index < 0) {
+            draggedItems.push({
+                initialX: (e.type === "touchstart") ? (e.touches[0].clientX - 0) : e.clientX - 0,
+                initialY: (e.type === "touchstart") ? (e.touches[0].clientY - 0) : e.clientY - 0,
+                currentX: 0,
+                currentY: 0,
+                xOffset: 0,
+                yOffset: 0,
+                elem: e.srcElement.parentElement,
+                active: true
+            });
         } else {
-            var centerOfCard = document.createElement('div');
-            centerOfCard.setAttribute('class', 'center');
-            if(card instanceof PlayingCard) {
-                classes += ' ' + card.rank + ' ' + card.suit;
-                var symbol = '';
-                switch(card.suit.toString()) {
-                    case "SPADES": //Suit.SPADES:
-                        symbol = '&spades;';
-                        break;
-                    case "CLUBS": //Suit.CLUBS:
-                        symbol = '&clubs;';
-                        break;
-                    case "HEARTS": //Suit.HEARTS:
-                        symbol = '&hearts;';
-                        break;
-                    case "DIAMONDS": //Suit.DIAMONDS:
-                        symbol = '&diams;';
-                        break;
-                }
-
-                var cornerLetter = '';
-                switch(card.rank.toString()) {
-                    case "ACE":
-                        cornerLetter = 'A';
-                        centerOfCard.innerHTML = symbol;
-                        break;
-                    case "TWO":
-                        cornerLetter = '2';
-                        centerOfCard.innerHTML = symbol + '<br>' + symbol;
-                        break;
-                    case "THREE":
-                        cornerLetter = '3';
-                        centerOfCard.innerHTML = symbol + '<br>' + symbol + '<br>' + symbol;
-                        break;
-                    case "FOUR":
-                        cornerLetter = '4';
-                        centerOfCard.innerHTML = symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol;
-                        break;
-                    case "FIVE":
-                        cornerLetter = '5';
-                        centerOfCard.innerHTML = symbol + ' ' + symbol + '<br>' + symbol + '<br>' + symbol + ' ' + symbol;
-                        break;
-                    case "SIX":
-                        cornerLetter = '6';
-                        centerOfCard.innerHTML = symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol;
-                        break;
-                    case "SEVEN":
-                        cornerLetter = '7';
-                        centerOfCard.innerHTML = symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol;
-                        break;
-                    case "EIGHT":
-                        cornerLetter = '8';
-                        centerOfCard.innerHTML = symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol;
-                        break;
-                    case "NINE":
-                        cornerLetter = '9';
-                        centerOfCard.innerHTML = symbol + ' ' + symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol + ' ' + symbol;
-                        break;
-                    case "TEN":
-                        cornerLetter = '10';
-                        centerOfCard.innerHTML = symbol + ' ' + symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol + ' ' + symbol + '<br>' + symbol + ' ' + symbol;
-                        break;
-                    case "JACK":
-                        cornerLetter = 'J';
-                        centerOfCard.innerHTML = document.getElementById('bart').outerHTML;
-                        break;
-                    case "QUEEN":
-                        cornerLetter = 'Q';
-                        centerOfCard.innerHTML = document.getElementById('marge').outerHTML;
-                        break;
-                    case "KING":
-                        cornerLetter = 'K';
-                        centerOfCard.innerHTML = document.getElementById('homer').outerHTML;
-                        break;
-                }
-
-                var upperLeftCorner = buildCardCornerHtml(cornerLetter, symbol, 'upper-left');
-                var lowerRightCorner = buildCardCornerHtml(cornerLetter, symbol, 'lower-right');
-                elem.appendChild(upperLeftCorner);
-                elem.appendChild(centerOfCard);
-                elem.appendChild(lowerRightCorner);
-            }
-
-            
-
-            if(card instanceof UnoCard) {
-                classes += ' ' + card.rank + ' ' + card.color;
-                centerOfCard.innerText = card.name.replace(/_/g, ' ');
-                elem.appendChild(centerOfCard);
-            }
-    
-            if(card instanceof GenericCard) {
-
-            }
-        }
-
-        classes = classes.trim();
-        if(classes !== "card") {
-            elem.setAttribute('class', classes);
-            document.body.appendChild(elem);
-        } else {
-            throw "NO VALID CARD INFO FOUND FOR RENDERING!";
+            draggedItems[index].active = true;
+            draggedItems[index].initialX = (e.type === "touchstart") ? (e.touches[0].clientX - draggedItems[index].xOffset) : e.clientX - draggedItems[index].xOffset;
+            draggedItems[index].initialY = (e.type === "touchstart") ? (e.touches[0].clientY - draggedItems[index].yOffset) : e.clientY - draggedItems[index].yOffset;
         }
     }
 
-    var deck = DeckOfPlayingCards();
-    deck.shuffle();
-
-    for(var i = 0; i < deck.cards.length; i++) {
-        deck.cards[i].state = CardState.UP;
-        renderCard(deck.cards[i]);
+    function setTranslate(xPos, yPos, el) {
+        let transformString = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+        el.style.transform = transformString;
+        writeCardPositionData(el.className, transformString)
     }
-    
-    var unoDeck = DeckOfUnoCards();
-    unoDeck.shuffle();
 
-    for(var i = 0; i < unoDeck.cards.length; i++) {
-        unoDeck.cards[i].state = CardState.UP;
-        renderCard(unoDeck.cards[i]);
+    function drag(e) {
+        var index = draggedItems.findIndex((v) => {
+            return e.srcElement.parentElement === v.elem;
+        });
+        if (index > -1 && draggedItems[index].active) {
+            e.preventDefault();
+
+            if (e.type === "touchmove") {
+                draggedItems[index].currentX = e.touches[0].clientX - draggedItems[index].initialX;
+                draggedItems[index].currentY = e.touches[0].clientY - draggedItems[index].initialY;
+            } else {
+                draggedItems[index].currentX = e.clientX - draggedItems[index].initialX;
+                draggedItems[index].currentY = e.clientY - draggedItems[index].initialY;
+            }
+
+            draggedItems[index].xOffset = draggedItems[index].currentX;
+            draggedItems[index].yOffset = draggedItems[index].currentY;
+
+            setTranslate(draggedItems[index].currentX, draggedItems[index].currentY, draggedItems[index].elem);
+        }
     }
+
+    function dragEnd(e) {
+        var index = draggedItems.findIndex((v) => {
+            return e.srcElement.parentElement === v.elem;
+        });
+        if (index > -1) {
+            draggedItems[index].initialX = draggedItems[index].currentX;
+            draggedItems[index].initialY = draggedItems[index].currentY;
+            draggedItems[index].active = false;
+        }
+    }
+
+    document.body.addEventListener('mouseup', (e) => {
+        for (var i = 0; i < draggedItems.length; i++) {
+            draggedItems[i].active = false;
+        }
+    });
+
+    function removeCardEvents(): void {
+        var draggableElements = document.getElementsByClassName('draggable');
+        for (var i = 0; i < draggableElements.length; i++) {
+            draggableElements[i].removeEventListener('touchstart', dragStart);
+            draggableElements[i].removeEventListener('touchend', dragEnd);
+            draggableElements[i].removeEventListener('touchmove', drag);
+
+            draggableElements[i].removeEventListener('mousedown', dragStart);
+            draggableElements[i].removeEventListener('mouseup', dragEnd);
+            draggableElements[i].removeEventListener('mousemove', drag);
+        }
+    }
+
+    function bindCardEvents(): void {
+        var draggableElements = document.getElementsByClassName('draggable');
+        for (var i = 0; i < draggableElements.length; i++) {
+            draggableElements[i].addEventListener('touchstart', dragStart);
+            draggableElements[i].addEventListener('touchend', dragEnd);
+            draggableElements[i].addEventListener('touchmove', drag);
+
+            draggableElements[i].addEventListener('mousedown', dragStart);
+            draggableElements[i].addEventListener('mouseup', dragEnd);
+            draggableElements[i].addEventListener('mousemove', drag);
+        }
+    }
+
+    firebase.database().ref('cards/').on('child_added', (snapshot) => {
+        console.log(snapshot);
+        var tmp = snapshot.key.split(' ');
+        var name = tmp[tmp.length - 2];
+        var color = tmp[tmp.length - 1];
+        var tmpDeck = DeckOfHierarchyCards();
+        let card = <HierarchyCard>tmpDeck.removeCardByName(name);
+        card.color = color === 'LIGHT' ? HierarchyColor.LIGHT : HierarchyColor.DARK;
+        renderCard(card);
+        removeCardEvents();
+        bindCardEvents();
+    });
+
+    firebase.database().ref('cards/').on('child_changed', (snapshot) => {
+        console.log(snapshot);
+        if (!snapshot.child('init').val()) {
+            let el = document.getElementsByClassName(snapshot.key)[0];
+            let transformString = snapshot.child('position').val();
+            (<any>el).style.transform = transformString;
+        }
+    });
+
+    firebase.database().ref('cards/').on('child_removed', (snapshot) => {
+        getDraggableAreaElement().innerHTML = '';
+    });
+
+    document.getElementById('deal').addEventListener('click', (e) => {
+        firebase.database().ref('cards/').remove();
+
+        getDraggableAreaElement().innerHTML = '';
+        let hierarchyDeck = DeckOfHierarchyCards();
+        hierarchyDeck.shuffle();
+        hierarchyDeck.cards.forEach((e: HierarchyCard, i: number) => {
+            e.color = i < 7 ? HierarchyColor.LIGHT : HierarchyColor.DARK;
+            addCardToFirebase(e);
+        });
+    });
 })();

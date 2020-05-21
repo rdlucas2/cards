@@ -5,9 +5,9 @@ export enum Suit {
     CLUBS,
     HEARTS,
     DIAMONDS
- }
- 
- export enum Rank {
+}
+
+export enum Rank {
     ACE = 1,
     TWO,
     THREE,
@@ -29,7 +29,7 @@ export class PlayingCard implements Card {
         this.rank = rank;
         this.suit = suit;
     }
-    
+
     state: CardState = CardState.DOWN;
     orientation: CardOrientation = CardOrientation.VERTICAL;
     name: string;
