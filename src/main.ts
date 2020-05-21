@@ -128,7 +128,7 @@ import * as firebase from 'firebase';
     }
 
     firebase.database().ref('cards/').on('child_added', (snapshot) => {
-        console.log(snapshot);
+        //console.log(snapshot);
         var tmp = snapshot.key.split(' ');
         var name = tmp[tmp.length - 2];
         var color = tmp[tmp.length - 1];
@@ -146,7 +146,7 @@ import * as firebase from 'firebase';
     });
 
     firebase.database().ref('cards/').on('child_changed', (snapshot) => {
-        console.log(snapshot);
+        //console.log(snapshot);
         if (!snapshot.child('init').val()) {
             let el = document.getElementsByClassName(snapshot.key)[0];
             let transformString = snapshot.child('position').val();
