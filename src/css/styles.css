@@ -7,13 +7,14 @@ body {
 }
 
 .card {
-    float: left;
+    /* float: left; */
     width: 125px;
     height: 150px;
     border: 1px solid black;
     margin: 2px;
-    position: relative;
+    /* position: relative; */
     display: table;
+    position: absolute;
 }
 
 .draggable {
