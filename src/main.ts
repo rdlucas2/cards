@@ -175,7 +175,7 @@ import * as firebase from 'firebase';
                     elem: el,
                     active: true
                 });
-                index = draggedItems[draggedItems.length - 1];
+                index = draggedItems.length - 1;
             } else {
                 draggedItems[index].initialX = snapshot.child('initialX').val();
                 draggedItems[index].initialY = snapshot.child('initialY').val();
@@ -218,7 +218,7 @@ import * as firebase from 'firebase';
                     elem: el,
                     active: true
                 });
-                index = draggedItems[draggedItems.length - 1];
+                index = draggedItems.length - 1;
             } else {
                 draggedItems[index].initialX = snapshot.child('initialX').val();
                 draggedItems[index].initialY = snapshot.child('initialY').val();
